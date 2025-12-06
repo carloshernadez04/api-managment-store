@@ -1,5 +1,5 @@
 import { User } from 'src/users/entities/user.entity';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class Role {
@@ -9,18 +9,15 @@ export class Role {
   @Column()
   name: string;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createAt: string;
+  @CreateDateColumn({ type: 'timestamp' }) 
+  createAt: Date;
 
-  @Column({ type: 'timestamp' })
-  updateAt: string;
+  @UpdateDateColumn({ type: 'timestamp' }) 
+  updateAt: Date;
 
-  @Column({ type: 'timestamp' })
-  deleteAt: string;
-
+  @DeleteDateColumn({ type: 'timestamp', nullable: true }) 
+  deleteAt: Date;
+  
   @OneToOne(() => User, (user) => user.role)
   user: User;
-
-  @Column({ nullable: false })
-  userId: number;
 }
